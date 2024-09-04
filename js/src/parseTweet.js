@@ -28,7 +28,12 @@ import urlHasHttps from './regexp/urlHasHttps';
  * displayRangeEnd {int} end index of display text (inclusive) in utf16
  */
 const parseTweet = function(text = '', options = configs.defaults) {
-  const mergedOptions = Object.keys(options).length ? options : configs.defaults;
+  // Merge the provided options with the defaults
+  const mergedOptions = {
+    ...configs.defaults,
+    ...options
+  };
+  
   const { defaultWeight, emojiParsingEnabled, scale, maxWeightedTweetLength, transformedURLLength } = mergedOptions;
   const normalizedText = typeof String.prototype.normalize === 'function' ? text.normalize() : text;
 
